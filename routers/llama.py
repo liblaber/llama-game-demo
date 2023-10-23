@@ -58,7 +58,7 @@ async def create_lama(llama: LlamaInput = Body(description="Something")) -> Llam
     summary="Get llama", 
     description="Get llama by an id", 
     operation_id="get_llama_by_id")
-async def get_llama(id: int = Path(description="A llama's id")) -> Llama:
+async def get_llama(id: int = Path(description="A llama's id", example=123)) -> Llama:
     llama = llamas_dummy.get_llama(id)
     if llama:
         return llama 
@@ -73,7 +73,7 @@ async def get_llama(id: int = Path(description="A llama's id")) -> Llama:
     description="Move a llama up, down, left or right by a positive number of steps", 
     operation_id="add_steps"
     )
-async def add_steps(id: int = Path(description="A llama's id"), direction: Direction = Query(description="The direction you want the llama to move"), steps: int= Query(description="The number of steps to make")) -> StepResult:
+async def add_steps(id: int = Path(description="A llama's id", example=123), direction: Direction = Query(description="The direction you want the llama to move"), steps: int= Query(description="The number of steps to make", example=3)) -> StepResult:
     if steps < 0:
         raise HTTPException(status_code=400, detail="Invalid amount of steps. Steps must be a positive number.")
     llama = llamas_dummy.get_llama(id=id)
@@ -83,7 +83,7 @@ async def add_steps(id: int = Path(description="A llama's id"), direction: Direc
         raise HTTPException(status_code=400, detail="Invalid direction")
 
     llama.steps_list.append(convert_step_to_coordination(direction, steps))
-    await manager.broadcast(json.dumps({"event": "move","data":{"id": id, "direction": direction, "steps": steps}}))
+    await manager.broadcast(json.dumps({"event": "step","data":{"id": id, "direction": direction, "steps": steps}}))
 
     return {"id": id, "direction": direction, "steps": steps}
 
@@ -94,7 +94,7 @@ async def add_steps(id: int = Path(description="A llama's id"), direction: Direc
     description="Move a llama up, down, left or right by a positive number of steps", 
     operation_id="move_llama"
     )
-async def move_llama(id: int = Path(description="A llama's id")) -> MoveResult:
+async def move_llama(id: int = Path(description="A llama's id", example=123)) -> MoveResult:
     llama = llamas_dummy.get_llama(id=id)
     if llama is None:
         raise HTTPException(status_code=404, detail="Llama not found by ID")
@@ -108,6 +108,6 @@ async def move_llama(id: int = Path(description="A llama's id")) -> MoveResult:
             break
 
     
-    await manager.broadcast(json.dumps(llama.dict()))
+    await manager.broadcast(json.dumps({"event": "move", "data": llama.dict() }))
 
     return {"id": id, "score": llama.score, "status": llama.status, "position": llama.curr_coordinates }

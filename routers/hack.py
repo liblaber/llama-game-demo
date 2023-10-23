@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Query, status
+from models.hack import HackResult
 
 router = APIRouter(prefix='/hack_liblab', tags=[ "hack"] )
 
@@ -16,5 +17,5 @@ router = APIRouter(prefix='/hack_liblab', tags=[ "hack"] )
         status.HTTP_401_UNAUTHORIZED: {"description": "Invalid password."},
     },
     )
-async def hack_attemp(password: str = Query(description="The password you think we use", example="None of your business")) -> str:
+async def hack_attemp(password: str = Query(description="The password you think we use", example="None of your business")) -> HackResult:
     return {"response": "what did you think was going to happen?"}
