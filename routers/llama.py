@@ -1,9 +1,12 @@
 import json
+from enum import Enum
+from typing import List
 from fastapi import APIRouter, HTTPException, Query, Body, Path, status
 from dummy import LlamaDummy
 from models.llama import LlamaInput, Llama
 from models.common import Direction
-from game_logic.maps import MAP, Map, LlamaStatus
+from models.game import MoveResult , StepResult
+from game_logic.maps import MAP, Map, LlamaStatus, MapGridItem
 from game_logic.calculations import convert_step_to_coordination
 from connection_manager import manager
 
@@ -14,6 +17,18 @@ llama1 = LlamaInput(name="libby")
 llamas_dummy.add_llama(llama1)
 llama2 = LlamaInput(name="libby2", color="black")
 llamas_dummy.add_llama(llama2)
+
+
+def serialize_map(map: List[List[MapGridItem]]):
+    matrix = map.matrix
+    serialized_matrix = []
+    for row in matrix:
+        serialized_row = []
+        for color in row:
+            serialized_row.append(color.value if isinstance(color, Enum) else color)
+        serialized_matrix.append(serialized_row)
+    return {'matrix': serialized_matrix}
+
 
 
 game_map = Map(matrix=MAP)
@@ -34,7 +49,7 @@ router = APIRouter(prefix='/llama', tags=[ "llama"] )
     )
 async def create_lama(llama: LlamaInput = Body(description="Something")) -> Llama:
     new_llama = llamas_dummy.add_llama(llama)
-    await manager.broadcast(json.dumps({"event": "create", "data": new_llama.dict(), "map": game_map}))
+    await manager.broadcast(json.dumps({"event": "create", "data": new_llama.dict(), "map": serialize_map(game_map)}))
     new_llama.steps_list.append(new_llama.start_coordinates)
     return new_llama
 
@@ -58,7 +73,7 @@ async def get_llama(id: int = Path(description="A llama's id")) -> Llama:
     description="Move a llama up, down, left or right by a positive number of steps", 
     operation_id="add_steps"
     )
-async def add_steps(id: int = Path(description="A llama's id"), direction: Direction = Query(description="The direction you want the llama to move"), steps: int= Query(description="The number of steps to make")):
+async def add_steps(id: int = Path(description="A llama's id"), direction: Direction = Query(description="The direction you want the llama to move"), steps: int= Query(description="The number of steps to make")) -> StepResult:
     if steps < 0:
         raise HTTPException(status_code=400, detail="Invalid amount of steps. Steps must be a positive number.")
     llama = llamas_dummy.get_llama(id=id)
@@ -79,7 +94,7 @@ async def add_steps(id: int = Path(description="A llama's id"), direction: Direc
     description="Move a llama up, down, left or right by a positive number of steps", 
     operation_id="move_llama"
     )
-async def move_llama(id: int = Path(description="A llama's id")):
+async def move_llama(id: int = Path(description="A llama's id")) -> MoveResult:
     llama = llamas_dummy.get_llama(id=id)
     if llama is None:
         raise HTTPException(status_code=404, detail="Llama not found by ID")

@@ -24,7 +24,7 @@ class LlamaInput(BaseModel):
     A llama to create, with details of its name and color.
     """
     name: str = Field(description="The llamas name.")
-    color: LlamaColor  = Field(default= LlamaColor.white, description="The llamas name.")
+    color: LlamaColor = Field(default= LlamaColor.white.value, description="The llamas name.")
 
     model_config = {
         "json_schema_extra": {
@@ -51,7 +51,7 @@ class Llama(LlamaInput):
     start_coordinates : List[int] = Field(default=[0,0], max_length=2, min_length=2, description="Start position of the llama.")
     curr_coordinates : List[int] = Field(default=[0,0], max_length=2, min_length=2, description="Current position of the llama.")
     steps_list : List[List[int]] = Field(default=[], description="The list of steps the llama has taken since the last time the move endpoint was called.")
-    status: LlamaStatus = LlamaStatus.ALIVE
+    status: LlamaStatus = LlamaStatus.ALIVE.value
 
     model_config = {
         "json_schema_extra": {
