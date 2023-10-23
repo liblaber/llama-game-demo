@@ -1,10 +1,12 @@
 
-from fastapi import FastAPI,WebSocket, WebSocketDisconnect
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, HTTPException,WebSocket, WebSocketDisconnect
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import routers.llama as llama
 import routers.hack as hack
 from models.llama import LlamaInput
 from connection_manager import manager
+from pathlib import Path
 
 from dummy import LlamaDummy, html
 
@@ -29,11 +31,6 @@ tags_metadata = [
 
 app = FastAPI(openapi_tags=tags_metadata)
 
-
-@app.get("/",include_in_schema=False)
-async def root():
-    return HTMLResponse(html)
-
 @app.websocket("/ws/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: int):
     await manager.connect(websocket)
@@ -49,3 +46,12 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
 app.include_router(llama.router)
 
 app.include_router(hack.router)
+
+@app.get("/", include_in_schema=False)
+async def read_root():
+    file_path = Path("public/index.html")
+    if not file_path.exists() or not file_path.is_file():
+        raise HTTPException(status_code=404, detail="File not found")
+    return FileResponse(file_path, media_type="text/html")
+
+app.mount("/", StaticFiles(directory="public"), name="static")
