@@ -134,6 +134,8 @@ export default class MainScene extends Phaser.Scene {
     this.time.delayedCall(6000, () => {
       rect.destroy();
       scoreText.destroy();
+      // Refresh the window
+      window.location.reload();
     });
   }
 }
