@@ -108,12 +108,13 @@ async def move_llama(id: int = Path(description="A llama's id", example=123)) ->
             new_steps_list.append(step)
         if llama.status == LlamaStatus.DEAD:
             if step[0] != 0:
-                final_position = [llama.curr_coordinates[0],0]
+                final_position = [step[0],0]
                 new_steps_list.append(final_position)
             elif step[1] != 0:
-                final_position = [0,llama.curr_coordinates[1]]
+                final_position = [0,step[1]]
                 new_steps_list.append(final_position)
             break
+
     llama.steps_list = new_steps_list
     await manager.broadcast(json.dumps({"event": "move", "data": llama.dict() }))
     return {"id": id, "score": llama.score, "status": llama.status, "position": llama.curr_coordinates }
