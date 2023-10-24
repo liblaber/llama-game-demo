@@ -116,17 +116,7 @@ export default class MainScene extends Phaser.Scene {
     graphics.strokePath();
 
     this.players.push(
-      new Player(
-        this,
-        1,
-        "Player 1",
-        0,
-        0,
-        "player",
-        "player-color",
-        "#000000",
-        true
-      )
+      new Player(this, 1, "Player 1", 0, 0, "player", "player-color", "", true)
     );
     this.players[0];
   }

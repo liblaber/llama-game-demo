@@ -15,15 +15,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     y: number,
     characterTexture: string | Phaser.Textures.Texture,
     bandanaTexture: string | Phaser.Textures.Texture,
-    bandanaColor: string
+    bandanaColor: string,
+    ghost: boolean = false
   ) {
     super(scene, x, y, characterTexture);
     this.name = name;
-    this.x += 16;
-    this.y += 16;
     this.id = id;
     scene.add.existing(this);
-    this.setScale(1.5);
+    this.setOrigin(0, 0);
 
     // Create the bandana sprite using its texture and position it over the character
     this.bandanaSprite = new Phaser.Physics.Arcade.Sprite(
@@ -33,18 +32,51 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       bandanaTexture
     );
     scene.add.existing(this.bandanaSprite);
-    this.bandanaSprite.setScale(1.5);
+    this.bandanaSprite.setOrigin(0, 0);
 
-    this.color = Math.floor(Math.random() * 16777215).toString(16);
-    if (bandanaColor.toLowerCase() == "black") {
-      this.color = "#000000";
-    }
+    const colorMap = {
+      black: "#000000",
+      white: "#ffffff",
+      red: "#ff0000",
+      blue: "#0000ff",
+      green: "#008000",
+      yellow: "#ffff00",
+      orange: "#ffa500",
+      purple: "#800080",
+      cyan: "#00ffff",
+      magenta: "#ff00ff",
+      lime: "#00ff00",
+      pink: "#ffc0cb",
+      teal: "#008080",
+      brown: "#a52a2a",
+      navy: "#000080",
+      maroon: "#800000",
+      olive: "#808000",
+      silver: "#c0c0c0",
+      gold: "#ffd700",
+      beige: "#f5f5dc",
+      turquoise: "#40e0d0",
+      indigo: "#4b0082",
+      coral: "#ff7f50",
+      salmon: "#fa8072",
+      chocolate: "#d2691e",
+    };
 
-    if (bandanaColor.toLowerCase() == "white") {
-      this.color = "#ffffff";
+    // Usage:
+    const normalizedColor = bandanaColor.toLowerCase();
+    if (colorMap.hasOwnProperty(normalizedColor)) {
+      this.color = colorMap[normalizedColor as keyof typeof colorMap];
+    } else {
+      // Handle unknown color
+      this.color = Math.floor(Math.random() * 16777215).toString(16);
     }
 
     this.setColor(this.color);
+
+    if (ghost) {
+      this.setAlpha(0.5);
+      this.bandanaSprite.setAlpha(0.5);
+    }
   }
 
   followSteps(
