@@ -35,12 +35,14 @@ export default class MainScene extends Phaser.Scene {
                 id: playerID,
                 color,
                 curr_coordinates,
+                name,
               } = createEvent.data;
 
               this.players.push(
                 new Player(
                   this,
                   playerID,
+                  name,
                   curr_coordinates[0] * 32,
                   curr_coordinates[1] * 32,
                   "player",
@@ -52,7 +54,7 @@ export default class MainScene extends Phaser.Scene {
               break;
             case "move":
               const moveEvent = data as MoveEventData;
-              const { id, steps_list } = moveEvent.data;
+              const { id, steps_list, status, score } = moveEvent.data;
               const player = this.players.find((p) => p.id === id);
               if (!player) {
                 console.log("No player found with id", id);
@@ -61,7 +63,7 @@ export default class MainScene extends Phaser.Scene {
               this.time.delayedCall(
                 2000,
                 () => {
-                  player.followSteps(steps_list);
+                  player.followSteps(steps_list, status, score);
                 },
                 [],
                 this
@@ -102,9 +104,36 @@ export default class MainScene extends Phaser.Scene {
     // );
   }
 
-  async wait(durationInMilliseconds: number) {
-    return new Promise((resolve) => {
-      this.time.delayedCall(durationInMilliseconds, resolve);
+  displayScorePopup(score: number, player: Player) {
+    // Create a semi-transparent rectangle as a background
+    const rect = this.add.rectangle(
+      0,
+      0,
+      this.cameras.main.width,
+      this.cameras.main.height,
+      0x000000
+    );
+    rect.setAlpha(0.7); // Adjust alpha for transparency
+    rect.setOrigin(0, 0); // Set the origin to the top-left
+    rect.setDepth(1000);
+    // Display the score in the center of the game screen
+    const scoreText = this.add.text(
+      this.cameras.main.width / 2,
+      this.cameras.main.height / 2,
+      `Congrats ${player.name}\nYour Score: ${score}\n\nThanks for playing!`,
+      {
+        fontSize: "32px",
+        color: "#ffffff",
+        backgroundColor: "#000000",
+        padding: { left: 15, right: 15, top: 10, bottom: 10 },
+      }
+    );
+    scoreText.setOrigin(0.5, 0.5); // Center the text's origin
+    scoreText.setDepth(1001);
+    player.destroy();
+    this.time.delayedCall(6000, () => {
+      rect.destroy();
+      scoreText.destroy();
     });
   }
 }
