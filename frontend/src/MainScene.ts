@@ -43,8 +43,8 @@ export default class MainScene extends Phaser.Scene {
                   this,
                   playerID,
                   name,
-                  curr_coordinates[0] * 32,
-                  curr_coordinates[1] * 32,
+                  curr_coordinates[0],
+                  curr_coordinates[1],
                   "player",
                   "player-color",
                   color
@@ -91,23 +91,13 @@ export default class MainScene extends Phaser.Scene {
     decoration.setDepth(2);
     const above = map.createLayer("Above Player", tileset, 0, 0);
     above.setDepth(10);
-    // this.players.push(
-    //   new Player(
-    //     this,
-    //     32 * 5,
-    //     32 * 5,
-    //     "player",
-    //     "player-color",
-    //     "Llama Joe",
-    //     Math.floor(Math.random() * 16777215).toString(16)
-    //   )
-    // );
-    const graphics = this.add.graphics();
+
+    let graphics = this.add.graphics();
 
     // Square settings
-    const squareSize = 32; // Size of each square (32x32)
-    const squaresHorizontally = 48; // Number of squares across the width
-    const squaresVertically = 27; // Number of squares down the height
+    let squareSize = 32; // Size of each square (32x32)
+    let squaresHorizontally = 48; // Number of squares across the width
+    let squaresVertically = 27; // Number of squares down the height
 
     graphics.lineStyle(1, 0xffffff, 0.3); // Line style: 1px wide, white, 80% opacity
 
@@ -124,6 +114,21 @@ export default class MainScene extends Phaser.Scene {
     }
 
     graphics.strokePath();
+
+    this.players.push(
+      new Player(
+        this,
+        1,
+        "Player 1",
+        0,
+        0,
+        "player",
+        "player-color",
+        "#000000",
+        true
+      )
+    );
+    this.players[0];
   }
 
   displayScorePopup(score: number, player: Player) {
