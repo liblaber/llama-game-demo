@@ -31,17 +31,20 @@ export default class MainScene extends Phaser.Scene {
           switch (data.event) {
             case "create":
               const createEvent = data as CreateEventData;
-              const { id: playerID, name, color } = createEvent.data;
+              const {
+                id: playerID,
+                color,
+                curr_coordinates,
+              } = createEvent.data;
 
               this.players.push(
                 new Player(
                   this,
                   playerID,
-                  5 * 32,
-                  5 * 32,
+                  curr_coordinates[0] * 32,
+                  curr_coordinates[1] * 32,
                   "player",
                   "player-color",
-                  name,
                   color
                 )
               );
@@ -78,11 +81,14 @@ export default class MainScene extends Phaser.Scene {
 
     const tileset = map.addTilesetImage("PokemonTiles", "tiles");
 
-    map.createLayer("Below Player", tileset, 0, 0);
-    map.createLayer("Map", tileset, 0, 0);
-    map.createLayer("Decoration", tileset, 0, 0);
-    map.createLayer("Above Player", tileset, 0, 0);
-
+    const below = map.createLayer("Below Player", tileset, 0, 0);
+    below.setDepth(-1);
+    const floor = map.createLayer("Map", tileset, 0, 0);
+    floor.setDepth(1);
+    const decoration = map.createLayer("Decoration", tileset, 0, 0);
+    decoration.setDepth(2);
+    const above = map.createLayer("Above Player", tileset, 0, 0);
+    above.setDepth(10);
     // this.players.push(
     //   new Player(
     //     this,

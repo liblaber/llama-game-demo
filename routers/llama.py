@@ -50,7 +50,6 @@ router = APIRouter(prefix='/llama', tags=[ "llama"] )
 async def create_lama(llama: LlamaInput = Body(description="Something")) -> Llama:
     new_llama = llamas_dummy.add_llama(llama)
     await manager.broadcast(json.dumps({"event": "create", "data": new_llama.dict(), "map": serialize_map(game_map)}))
-    new_llama.steps_list.append(new_llama.start_coordinates)
     return new_llama
 
 @router.get(
