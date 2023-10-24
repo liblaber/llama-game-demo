@@ -43,8 +43,8 @@ export default class MainScene extends Phaser.Scene {
                   this,
                   playerID,
                   name,
-                  curr_coordinates[0],
-                  curr_coordinates[1],
+                  curr_coordinates[0] * 32,
+                  curr_coordinates[1] * 32,
                   "player",
                   "player-color",
                   color
@@ -55,7 +55,7 @@ export default class MainScene extends Phaser.Scene {
             case "move":
               const moveEvent = data as MoveEventData;
               const { id, steps_list, status, score } = moveEvent.data;
-              steps_list.shift();
+              // steps_list.shift();
               const player = this.players.find((p) => p.id === id);
               if (!player) {
                 console.log("No player found with id", id);
