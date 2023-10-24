@@ -55,6 +55,7 @@ export default class MainScene extends Phaser.Scene {
             case "move":
               const moveEvent = data as MoveEventData;
               const { id, steps_list, status, score } = moveEvent.data;
+              steps_list.shift();
               const player = this.players.find((p) => p.id === id);
               if (!player) {
                 console.log("No player found with id", id);
@@ -121,7 +122,7 @@ export default class MainScene extends Phaser.Scene {
     this.players[0];
   }
 
-  displayScorePopup(score: number, player: Player) {
+  displayScorePopup(score: number, player: Player, dead: boolean = false) {
     // Create a semi-transparent rectangle as a background
     const rect = this.add.rectangle(
       0,
@@ -134,10 +135,13 @@ export default class MainScene extends Phaser.Scene {
     rect.setOrigin(0, 0); // Set the origin to the top-left
     rect.setDepth(1000);
     // Display the score in the center of the game screen
+    const message = dead
+      ? "You died!"
+      : `Congrats ${player.name}, you made it!`;
     const scoreText = this.add.text(
       this.cameras.main.width / 2,
       this.cameras.main.height / 2,
-      `Congrats ${player.name}\nYour Score: ${score}\n\nThanks for playing!`,
+      `${message}\nYour Score: ${score}\n\nThanks for playing!`,
       {
         fontSize: "32px",
         color: "#ffffff",

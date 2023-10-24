@@ -86,28 +86,21 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     currentIndex: number = 0
   ) {
     try {
-      // If there are no steps, return
-      if (steps.length === 0) return;
-
-      // Set the starting location if it's the first step
-      if (currentIndex === 0) {
-        const [startY, startX] = steps[0];
-        this.setPosition(startX * 32, startY * 32);
-        this.bandanaSprite.setPosition(startX * 32, startY * 32);
-        //this.nameTag.setPosition(startX * 32 + 16, startY * 32 - 40 + 16); // Keep the nametag above the player
-
-        // Move to the next step immediately after setting position
-        this.followSteps(steps, status, score, currentIndex + 1);
+      if (currentIndex >= steps.length) {
+        // If we've processed all steps, check status and display score
+        this.checkStatusAndDisplayScore(status, score);
         return;
       }
 
+      // Get the current step from the array
       const [dy, dx] = steps[currentIndex];
-      const newX = this.x + dx * 32; // Multiply by 32 for actual pixel offset
-      const newY = this.y + dy * 32; // Multiply by 32 for actual pixel offset
+      const newX = this.x + dx * 32; // 32 is the size of a tile in pixels
+      const newY = this.y + dy * 32;
 
-      const distance = Math.sqrt(dx * dx + dy * dy) * 32; // Multiply by 32 for actual pixel distance
-      const duration = (distance / this.moveSpeed) * 1000;
-      // Move the player and bandana
+      const distance = Math.sqrt(dx * dx + dy * dy) * 32; // Calculate the distance for the current step
+      const duration = (distance / this.moveSpeed) * 1000; // Calculate the duration for the tween animation
+
+      // Animate the player's movement
       this.scene.tweens.add({
         targets: [this, this.bandanaSprite],
         x: newX,
@@ -115,22 +108,19 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         duration: duration,
         ease: "Power2",
         onComplete: () => {
-          // After this step is complete, move to the next step
-          if (currentIndex + 1 < steps.length) {
-            this.followSteps(steps, status, score, currentIndex + 1);
-          } else {
-            // No more steps
-            // Check if the player is dead
-            if (status === "dead") {
-              this.onDeath();
-            } else {
-              // @ts-ignore
-              this.scene.displayScorePopup(score, this);
-            }
-          }
+          // After completing the current step, process the next step
+          this.followSteps(steps, status, score, currentIndex + 1);
         },
       });
-    } catch (err) {}
+    } catch (err) {
+      console.error("Error in followSteps:", err);
+      this.checkStatusAndDisplayScore(status, score);
+    }
+  }
+
+  private checkStatusAndDisplayScore(status: "alive" | "dead", score: number) {
+    // @ts-ignore
+    this.scene.displayScorePopup(score, this, status === "dead");
   }
 
   setColor(hexColor: string) {
