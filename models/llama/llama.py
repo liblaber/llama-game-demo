@@ -7,8 +7,32 @@ class LlamaColor(str, Enum):
     """
     The color of a llama.
     """
-    white = "white"
     black = "black"
+    white = "white"
+    red = "red"
+    blue = "blue"
+    green = "green"
+    yellow = "yellow"
+    orange = "orange"
+    purple = "purple"
+    cyan = "cyan"
+    magenta = "magenta"
+    lime = "lime"
+    pink = "pink"
+    teal = "teal"
+    brown = "brown"
+    navy = "navy"
+    maroon = "maroon"
+    olive = "olive"
+    silver = "silver"
+    gold = "gold"
+    beige = "beige"
+    turquoise = "turquoise"
+    indigo = "indigo"
+    coral = "coral"
+    salmon = "salmon"
+    chocolate = "chocolate"
+
 
     
 
