@@ -97,16 +97,23 @@ async def move_llama(id: int = Path(description="A llama's id", example=123)) ->
     llama = llamas_dummy.get_llama(id=id)
     if llama is None:
         raise HTTPException(status_code=404, detail="Llama not found by ID")
-
+    new_steps_list = []    
+    game_map = Map(matrix=MAP)
     for step in llama.steps_list:
         res = game_map.update_map(step, llama.curr_coordinates)
         llama.curr_coordinates = res["position"]
         llama.add_score(res["score"])
         llama.status = res["status"]
+        if llama.status == LlamaStatus.ALIVE:
+            new_steps_list.append(step)
         if llama.status == LlamaStatus.DEAD:
+            if step[0] != 0:
+                final_position = [llama.curr_coordinates[0],0]
+                new_steps_list.append(final_position)
+            elif step[1] != 0:
+                final_position = [0,llama.curr_coordinates[1]]
+                new_steps_list.append(final_position)
             break
-
-    
+    llama.steps_list = new_steps_list
     await manager.broadcast(json.dumps({"event": "move", "data": llama.dict() }))
-
     return {"id": id, "score": llama.score, "status": llama.status, "position": llama.curr_coordinates }

@@ -102,6 +102,28 @@ export default class MainScene extends Phaser.Scene {
     //     Math.floor(Math.random() * 16777215).toString(16)
     //   )
     // );
+    const graphics = this.add.graphics();
+
+    // Square settings
+    const squareSize = 32; // Size of each square (32x32)
+    const squaresHorizontally = 48; // Number of squares across the width
+    const squaresVertically = 27; // Number of squares down the height
+
+    graphics.lineStyle(1, 0xffffff, 0.3); // Line style: 1px wide, white, 80% opacity
+
+    // Draw vertical lines to form squares
+    for (let i = 0; i <= squaresHorizontally; i++) {
+      graphics.moveTo(i * squareSize, 0);
+      graphics.lineTo(i * squareSize, squaresVertically * squareSize);
+    }
+
+    // Draw horizontal lines to form squares
+    for (let i = 0; i <= squaresVertically; i++) {
+      graphics.moveTo(0, i * squareSize);
+      graphics.lineTo(squaresHorizontally * squareSize, i * squareSize);
+    }
+
+    graphics.strokePath();
   }
 
   displayScorePopup(score: number, player: Player) {
