@@ -29,7 +29,8 @@ tags_metadata = [
 ]
 
 
-app = FastAPI(openapi_tags=tags_metadata)
+app = FastAPI(openapi_tags=tags_metadata, description="""Welcome to the Llama game! Your purpose is to not hit anything, collect as many coins, and get as far as you can through the maze!
+To play you need to create a Llama with a name and a color, add your steps one by one, and then move the Llama and see how far you got! Good luck!""")
 
 @app.websocket("/ws/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: int):

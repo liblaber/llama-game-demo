@@ -1,3 +1,9 @@
+To run the whole project:
+```sh
+./deploy.sh
+```
+
+
 To create a virtual env:
 ```sh
 python -m venv .venv
