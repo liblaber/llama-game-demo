@@ -1,3 +1,5 @@
+# pylint: disable=C0302
+
 from enum import Enum
 from typing import List
 from pydantic import BaseModel
@@ -1381,8 +1383,8 @@ class Map(BaseModel):
         step_y, step_x = step[0], step[1]
         start_y, start_x = start_point[0], start_point[1]
         if step_x != 0:
-            iter = int(step_x / abs(step_x))
-            i = iter
+            map_iter = int(step_x / abs(step_x))
+            i = map_iter
             while abs(i) <= abs(step_x):
                 curr_x = start_x + i
                 if self.matrix[start_y][curr_x] == MapGridItem.COIN:
@@ -1398,15 +1400,15 @@ class Map(BaseModel):
                         "score": score,
                         "position": [start_y, curr_x],
                     }
-                i += iter
+                i += map_iter
             return {
                 "status": LlamaStatus.ALIVE,
                 "score": score,
                 "position": [start_y, curr_x],
             }
         if step_y != 0:
-            iter = int(step_y / abs(step_y))
-            i = iter
+            map_iter = int(step_y / abs(step_y))
+            i = map_iter
             while abs(i) <= abs(step_y):
                 curr_y = start_y + i
                 if self.matrix[curr_y][start_x] == MapGridItem.COIN:
@@ -1422,7 +1424,7 @@ class Map(BaseModel):
                         "score": score,
                         "position": [curr_y, start_x],
                     }
-                i += iter
+                i += map_iter
             return {
                 "status": LlamaStatus.ALIVE,
                 "score": score,

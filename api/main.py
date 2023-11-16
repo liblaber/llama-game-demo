@@ -13,6 +13,7 @@ from connection_manager import manager
 
 from dummy import LlamaDummy
 
+#pylint: disable=duplicate-code
 llamas_dummy = LlamaDummy()
 llama1 = LlamaInput(name="libby")
 llamas_dummy.add_llama(llama1)
@@ -32,6 +33,7 @@ tags_metadata = [
 ]
 
 app = FastAPI(
+    title="liblab Llama SDK Challenge",
     servers=[{"url": "http://localhost:8001", "description": "Prod"}],
     contact={"name": "liblab", "url": "https://liblab.com"},
     openapi_tags=tags_metadata,

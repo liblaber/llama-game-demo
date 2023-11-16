@@ -162,3 +162,5 @@ cython_debug/
 /public/
 
 /output
+
+.DS_Store

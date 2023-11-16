@@ -15,7 +15,7 @@ from game_logic.calculations import convert_step_to_coordination
 from connection_manager import manager
 
 
-# for testing
+#pylint: disable=duplicate-code
 llamas_dummy = LlamaDummy()
 llama1 = LlamaInput(name="libby")
 llamas_dummy.add_llama(llama1)
@@ -36,8 +36,6 @@ def serialize_map(llama_map: List[List[MapGridItem]]):
         serialized_matrix.append(serialized_row)
     return {"matrix": serialized_matrix}
 
-
-game_map = Map(matrix=MAP)
 
 router = APIRouter(prefix="/llama", tags=["llama"])
 
@@ -64,7 +62,7 @@ async def create_lama(llama: LlamaInput = Body(description="Something")) -> Llam
             {
                 "event": "create",
                 "data": new_llama.dict(),
-                "map": serialize_map(game_map),
+                "map": serialize_map(Map(matrix=MAP)),
             }
         )
     )
@@ -77,15 +75,17 @@ async def create_lama(llama: LlamaInput = Body(description="Something")) -> Llam
     description="Get llama by an id",
     operation_id="get_llama_by_id",
 )
-async def get_llama(llama_id: int = Path(description="A llama's id", example=123)) -> Llama:
+async def get_llama(
+    llama_id: int = Path(description="A llama's id", example=123)
+) -> Llama:
     """
     Get llama by an id
     """
     llama = llamas_dummy.get_llama(llama_id)
     if llama:
         return llama
-    
-    raise HTTPException(status_code=400, detail="Provide ID for a llama")
+
+    raise HTTPException(status_code=400, detail="Provide a valid ID for a llama")
 
 
 @router.post(

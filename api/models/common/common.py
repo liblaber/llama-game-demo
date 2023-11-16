@@ -11,5 +11,7 @@ class Direction(str, Enum):
     UP = "up"
     DOWN = "down"
 
-    def list():
+    @classmethod
+    def list(cls):
+        # pylint: disable=no-member
         return list(map(lambda x: x.value, Direction._member_map_.values()))

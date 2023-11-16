@@ -1,6 +1,6 @@
 # The liblab llama SDK challenge game!
 
-![The liblab llama game with a llama navigating a maze of fences and trees]()
+![The liblab llama game with a llama navigating a maze of fences and trees](./img/llama-game-running.gif)
 
 Welcome to the liblab llama SDK challenge game! Your goal is to lead the llama home, collecting as many berries on the way that you can.
 
@@ -116,7 +116,10 @@ The default config file has a lot of options you don't need here, so open it in 
   "languages": [
     "python"
   ],
-  "createDocs": true
+  "createDocs": true,
+  "customizations": {
+    "devContainer": true
+  }
 }
 ```
 
@@ -152,7 +155,9 @@ The steps you need to take are:
 1. Run the steps to move the llama
 1. Output the result
 
-You can refer to the SDK docs that are generated to help you do this!
+You can refer to the SDK docs that are generated to help you do this! You can also find the SDK docs published [on the liblab docs site](https://docs.liblab.com/liblab/liblab-llama-sdk-challenge/0.1.0).
+
+You can also find example code in the [`example`](./example/) folder.
 
 ## Learn more
 

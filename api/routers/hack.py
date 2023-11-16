@@ -19,6 +19,7 @@ router = APIRouter(prefix="/hack_liblab", tags=["hack"])
     },
 )
 async def hack_attemp(
+    # pylint: disable=unused-argument
     password: str = Query(
         description="The password you think we use", example="None of your business"
     )
