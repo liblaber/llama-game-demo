@@ -30,9 +30,9 @@ COPY ./scripts /app/scripts
 RUN chmod +x ./scripts/*.sh
 RUN ./scripts/post-create.sh
 
-# # Expose port 8000 for Uvicorn to listen on
+# Expose port 8000 and 8001
 EXPOSE 8000
 EXPOSE 8001
 
-# Run Uvicorn with the desired options
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001", "--reload"]
+# Start the web app and API
+CMD ["/bin/bash", "-c", "./scripts/start-game.sh"]

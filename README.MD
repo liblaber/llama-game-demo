@@ -65,14 +65,17 @@ Stop the game running using `ctrl+c`. This will terminate both the front and and
 
 ### Run the game from a Docker container
 
-You can also create a docker container that the game runs in
+You can also create a docker container that the game runs in. This container runs both the front end and the API.
 
+To run the container, you need docker and docker compose installed. You can then build and start the container using:
 
-
+```bash
+docker compose up
+```
 
 ## Create the SDK
 
-Once the game is running, you will need to generate an SDK to play the game. To do this, you will be using [liblab](https://liblab.com). You can learn more about liblab and the steps to creae an SDK in the [liblab documentation](https://developers.liblab.com).
+Once the game is running, you will need to generate an SDK to play the game. To do this, you will be using [liblab](https://liblab.com). You can learn more about liblab and the steps to create an SDK in the [liblab documentation](https://developers.liblab.com).
 
 liblab takes an API specification and uses that to build the SDK. This specification can be loaded from the API whilst it is running - you can see it at [localhost:8001/openapi.json](http://localhost:8001/openapi.json).
 
@@ -104,7 +107,7 @@ liblab init
 
 This will create the config file in the current folder, so run this from where you want the SDK to be generated.
 
-The default config file has a lot of options you don't need here, so open it in a text editor and chamge the contents to the following:
+The default config file has a lot of options you don't need here, so open it in a text editor and change the contents to the following:
 
 ```json
 {
