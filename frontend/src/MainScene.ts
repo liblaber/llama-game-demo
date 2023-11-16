@@ -16,7 +16,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
-    const socket = new WebSocket("ws://localhost:8000/ws/1");
+    const socket = new WebSocket("ws://localhost:8001/ws/1");
     socket.onopen = () => {
       console.log("Connected to server");
     };
@@ -32,7 +32,7 @@ export default class MainScene extends Phaser.Scene {
             case "create":
               const createEvent = data as CreateEventData;
               const {
-                id: playerID,
+                llama_id: playerID,
                 color,
                 curr_coordinates,
                 name,
@@ -54,11 +54,11 @@ export default class MainScene extends Phaser.Scene {
               break;
             case "move":
               const moveEvent = data as MoveEventData;
-              const { id, steps_list, status, score } = moveEvent.data;
+              const { llama_id, steps_list, status, score } = moveEvent.data;
               // steps_list.shift();
-              const player = this.players.find((p) => p.id === id);
+              const player = this.players.find((p) => p.llama_id === llama_id);
               if (!player) {
-                console.log("No player found with id", id);
+                console.log("No player found with id", llama_id);
                 return;
               }
               this.time.delayedCall(
@@ -69,7 +69,7 @@ export default class MainScene extends Phaser.Scene {
                 [],
                 this
               );
-              console.log("Moved player", id);
+              console.log("Moved player", llama_id);
               break;
           }
         }

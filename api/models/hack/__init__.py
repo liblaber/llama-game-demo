@@ -1,3 +1,3 @@
 from .hack import HackResult
 
-__all__ = ['HackResult']
+__all__ = ["HackResult"]

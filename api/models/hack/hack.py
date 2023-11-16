@@ -1,9 +1,11 @@
 from pydantic import BaseModel, Field
 
+
 class HackResult(BaseModel):
     """
     Hacking result.
     """
+
     response: str = Field(description="Did you make it?")
 
     model_config = {

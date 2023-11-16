@@ -9,4 +9,4 @@ def convert_step_to_coordination(direction: Direction, steps: int) -> List[int]:
         return [0, steps * direction_to_coordinate[direction]]
     if direction is Direction.UP or direction is Direction.DOWN:
         return [steps * direction_to_coordinate[direction], 0]
-    return [0,0]
+    return [0, 0]

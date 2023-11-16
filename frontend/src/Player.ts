@@ -2,14 +2,14 @@ import Phaser from "phaser";
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   private moveSpeed: number = 32 * 5; // pixels per second
-  public id: number;
+  public llama_id: number;
   public color: string; // Default bandana color
   public name: string;
   private bandanaSprite: Phaser.Physics.Arcade.Sprite;
 
   constructor(
     scene: Phaser.Scene,
-    id: number,
+    llama_id: number,
     name: string,
     x: number,
     y: number,
@@ -20,7 +20,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   ) {
     super(scene, x, y, characterTexture);
     this.name = name;
-    this.id = id;
+    this.llama_id = llama_id;
     scene.add.existing(this);
     this.setOrigin(0, 0);
 
