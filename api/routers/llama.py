@@ -15,7 +15,7 @@ from game_logic.calculations import convert_step_to_coordination
 from connection_manager import manager
 
 
-#pylint: disable=duplicate-code
+# pylint: disable=duplicate-code
 llamas_dummy = LlamaDummy()
 llama1 = LlamaInput(name="libby")
 llamas_dummy.add_llama(llama1)

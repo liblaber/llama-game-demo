@@ -13,7 +13,7 @@ from connection_manager import manager
 
 from dummy import LlamaDummy
 
-#pylint: disable=duplicate-code
+# pylint: disable=duplicate-code
 llamas_dummy = LlamaDummy()
 llama1 = LlamaInput(name="libby")
 llamas_dummy.add_llama(llama1)
@@ -68,7 +68,7 @@ app.include_router(hack.router)
 
 def fix_openapi_spec(app_to_fix: FastAPI) -> None:
     """
-    The default OpenAPI spec created by FastAPI has trailing slashes on the server URLs. 
+    The default OpenAPI spec created by FastAPI has trailing slashes on the server URLs.
     This function removes them, as this is a validation error in the spectral analysis of the OpenAPI spec.
     See this discussion from the FastAPI GitHub repo: https://github.com/tiangolo/fastapi/discussions/10309
 
