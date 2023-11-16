@@ -7,5 +7,6 @@
     "java",
     "python",
     "typescript"
-  ]
+  ],
+  "createDocs": true
 }

@@ -112,7 +112,8 @@ The default config file has a lot of options you don't need here, so open it in 
   "specFilePath": "http://localhost:8001/openapi.json",
   "languages": [
     "python"
-  ]
+  ],
+  "createDocs": true
 }
 ```
 
@@ -134,11 +135,21 @@ This will download the spec from the API, and send it to liblab along with the c
 >
 > Then the API is not running and needs to be started.
 
-The SDK will be generated and downloaded to the `output` folder, in a subfolder for the SDK language(s) in the config file.
+The SDK will be generated and downloaded to the `output` folder, in a subfolder for the SDK language(s) in the config file. You can then use this SDK to control the llama. Docs will also be created, and you can use these to help you control the llama using the SDK.
 
 ## Control the llama
 
-## About the code
+The aim of the game is to write code to get the llama safely to the pen on the right hand side of the screen, collecting as many berries as possible on the way.
+
+The steps you need to take are:
+
+1. Create the llama game SDK client
+1. Create a llama
+1. Add steps that the llama should take to get to the pen
+1. Run the steps to move the llama
+1. Output the result
+
+You can refer to the SDK docs that are generated to help you do this!
 
 ## Learn more
 
@@ -151,34 +162,3 @@ liblab generates high-quality, developer friendly SDKs in multiple languages. Le
 - [Follow us on Twitter](https://twitter.com/liblaber)
 - [Connect with us on LinkedIn](https://www.linkedin.com/company/liblaber)
 - [Watch our videos on YouTube](https://youtube.com/@liblaber)
-
-
-
-
-
-
-
-
-
-
-
-To run the whole project:
-```sh
-./deploy.sh
-```
-
-
-To create a virtual env:
-```sh
-python -m venv .venv
-```
-
-To activate the virtual environment once it is installed run:
-```sh
-source .venv/bin/activate
-```
-
-To activate uvicorn:
-```sh
-uvicorn main:app --reload
-```

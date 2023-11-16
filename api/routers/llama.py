@@ -43,7 +43,7 @@ router = APIRouter(prefix="/llama", tags=["llama"])
 
 
 @router.post(
-    path="/",
+    path="",
     summary="Create a new llama",
     description="Create a new playable llama",
     operation_id="create_llama",
