@@ -24,7 +24,7 @@ llamas_dummy.add_llama(llama2)
 tags_metadata = [
     {
         "name": "hack",
-        "description": "Get access to Liblab's high score",
+        "description": "Get access to liblab's high score",
     },
     {
         "name": "llama",

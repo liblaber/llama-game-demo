@@ -6,8 +6,8 @@ router = APIRouter(prefix="/hack_liblab", tags=["hack"])
 
 @router.post(
     path="",
-    summary="Hack Liblab",
-    description="Attempt to guess Liblab's admin password.",
+    summary="Hack liblab",
+    description="Attempt to guess liblab's admin password.",
     operation_id="hack_attempt",
     status_code=status.HTTP_200_OK,
     responses={
