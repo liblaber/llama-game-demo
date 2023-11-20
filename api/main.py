@@ -34,7 +34,7 @@ tags_metadata = [
 
 app = FastAPI(
     title="liblab Llama SDK Challenge",
-    servers=[{"url": "http://localhost:8001", "description": "Prod"}],
+    servers=[{"url": "http://localhost:8000", "description": "Prod"}],
     contact={"name": "liblab", "url": "https://liblab.com"},
     openapi_tags=tags_metadata,
     description="""

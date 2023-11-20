@@ -16,7 +16,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
-    const socket = new WebSocket("ws://localhost:8001/ws/1");
+    const socket = new WebSocket("ws://localhost:8000/ws/1");
     socket.onopen = () => {
       console.log("Connected to server");
     };

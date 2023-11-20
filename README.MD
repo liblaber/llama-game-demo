@@ -14,7 +14,7 @@ Your tasks:
 
 ## Launch the llama game
 
-The llama game is in 2 parts - a frontend application that shows the llama and the game map, and a back end API.
+The llama game is in 2 parts - a frontend application that shows the llama and the game map, and a back end API. The frontend application is compiled using Vite and Phaser, and the output is hosted from the API.
 
 There are 3 ways to run this game - from a [devcontainer](#run-the-game-from-a-dev-container), [locally](#run-the-game-locally), and from a [docker container](#run-the-game-from-a-docker-container).
 
@@ -22,7 +22,7 @@ There are 3 ways to run this game - from a [devcontainer](#run-the-game-from-a-d
 
 If you open this repo in an IDE that supports dev containers (such as VS Code or GitHub codespaces), then once you open the container, everything will be installed and configured for you.
 
-To start the frontend and API, run the following script:
+To start the frontend and API, run the following script from the root of this project:
 
 ```bash
 ./scripts/start-game.sh
@@ -35,11 +35,12 @@ Stop the game running using `ctrl+c`. This will terminate both the front and and
 To run the game locally, you will need to install some Python packages and run the frontend via NPM.
 
 1. Make sure you have NPM and Python installed locally. You will need a recent version of NPM and Python 3.8 or higher.
-1. For the frontend, install the NPM packages:
+1. For the frontend, install the NPM packages, then build the project
 
     ```bash
     cd frontend
     npm install
+    npm run build
     ```
 1. For the API, you will need to install some Python packages. The recommended way is via a virtual environment:
 
@@ -77,7 +78,7 @@ docker compose up
 
 Once the game is running, you will need to generate an SDK to play the game. To do this, you will be using [liblab](https://liblab.com). You can learn more about liblab and the steps to create an SDK in the [liblab documentation](https://developers.liblab.com).
 
-liblab takes an API specification and uses that to build the SDK. This specification can be loaded from the API whilst it is running - you can see it at [localhost:8001/openapi.json](http://localhost:8001/openapi.json).
+liblab takes an API specification and uses that to build the SDK. This specification can be loaded from the API whilst it is running - you can see it at [localhost:8000/openapi.json](http://localhost:8000/openapi.json).
 
 ### Install the liblab CLI
 
@@ -112,7 +113,7 @@ The default config file has a lot of options you don't need here, so open it in 
 ```json
 {
   "sdkName": "llama-game",
-  "specFilePath": "http://localhost:8001/openapi.json",
+  "specFilePath": "http://localhost:8000/openapi.json",
   "languages": [
     "python"
   ],
