@@ -15,7 +15,7 @@ RUN npm --version
 
 # Set environment variables
 ENV UVICORN_HOST=0.0.0.0
-ENV UVICORN_PORT=8001
+ENV UVICORN_PORT=8000
 ENV UVICORN_RELOAD=true
 
 # Set the working directory in the container to /app
@@ -30,9 +30,8 @@ COPY ./scripts /app/scripts
 RUN chmod +x ./scripts/*.sh
 RUN ./scripts/post-create.sh
 
-# Expose port 8000 and 8001
+# Expose port 8000
 EXPOSE 8000
-EXPOSE 8001
 
 # Start the web app and API
 CMD ["/bin/bash", "-c", "./scripts/start-game.sh"]

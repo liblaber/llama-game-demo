@@ -1,6 +1,6 @@
 {
   "sdkName": "llama-game",
-  "specFilePath": "http://localhost:8001/openapi.json",
+  "specFilePath": "http://localhost:8000/openapi.json",
   "languages": [
     "python"
   ],
