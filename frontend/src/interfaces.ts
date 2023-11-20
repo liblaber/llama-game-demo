@@ -7,7 +7,7 @@ export interface CreateEventData extends IEventData {
   data: {
     name: string;
     color: string;
-    id: number;
+    llama_id: number;
     score: number;
     start_coordinates: [number, number];
     curr_coordinates: [number, number];
@@ -18,7 +18,7 @@ export interface CreateEventData extends IEventData {
 
 export interface StepEventData extends IEventData {
   data: {
-    id: number;
+    llama_id: number;
     direction: string;
     steps: number;
   };
@@ -28,7 +28,7 @@ export interface MoveEventData extends IEventData {
   data: {
     name: string;
     color: string;
-    id: number;
+    llama_id: number;
     score: number;
     start_coordinates: [number, number];
     curr_coordinates: [number, number];
