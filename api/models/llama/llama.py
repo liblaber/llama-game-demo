@@ -76,7 +76,7 @@ class Llama(LlamaInput):
     A llama, with details of it's name, color, status, current score, current coordinates and its steps list.
     """
 
-    llama_id: int = Field(description="The llamas name.")
+    llama_id: int = Field(description="The llamas Id.")
     score: int = Field(default=0, description="Current score of the llama.")
     start_coordinates: List[int] = Field(
         default=[0, 0],
