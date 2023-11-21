@@ -165,7 +165,7 @@ async def move_llama(
             break
 
     llama.steps_list = new_steps_list
-    await manager.broadcast(json.dumps({"event": "move", "data": llama.dict()}))
+    await manager.broadcast(json.dumps({"event": "move", "data": llama.model_dump()}))
     return {
         "llama_id": llama_id,
         "score": llama.score,
