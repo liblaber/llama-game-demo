@@ -76,7 +76,7 @@ async def create_lama(llama: LlamaInput = Body(description="Something")) -> Llam
     operation_id="get_llama_by_id",
 )
 async def get_llama(
-    llama_id: int = Path(description="A llama's id", example=123)
+    llama_id: int = Path(description="A llama's id", examples=[123])
 ) -> Llama:
     """
     Get llama by an id
@@ -96,11 +96,11 @@ async def get_llama(
     operation_id="add_steps",
 )
 async def add_steps(
-    llama_id: int = Path(description="A llama's id", example=123),
+    llama_id: int = Path(description="A llama's id", examples=[123]),
     direction: Direction = Query(
         description="The direction you want the llama to move"
     ),
-    steps: int = Query(description="The number of steps to make", example=3),
+    steps: int = Query(description="The number of steps to make", examples=[3]),
 ) -> StepResult:
     """
     Move a llama up, down, left or right by a positive number of steps.
@@ -138,7 +138,7 @@ async def add_steps(
     operation_id="move_llama",
 )
 async def move_llama(
-    llama_id: int = Path(description="A llama's id", example=123)
+    llama_id: int = Path(description="A llama's id", examples=[123])
 ) -> MoveResult:
     """
     Move the llama following the step instructions previously added.
