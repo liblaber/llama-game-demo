@@ -1,8 +1,12 @@
 {
   "sdkName": "llama-game",
   "specFilePath": "http://localhost:8000/openapi.json",
+  "baseUrl": "http://host.docker.internal:8000",
   "languages": [
-    "python"
+    "python",
+    "typescript",
+    "csharp",
+    "go"
   ],
   "createDocs": true,
   "customizations": {

@@ -1,0 +1,651 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "liblab Llama SDK Challenge",
+        "description": "\n        Welcome to the Llama game! Your purpose is to not hit anything, collect as many coins, \n        and get as far as you can through the maze!\n        To play you need to create a Llama with a name and a color, add your steps one by one,\n        and then move the Llama and see how far you got! Good luck!\n        ",
+        "contact": {
+            "name": "liblab",
+            "url": "https://liblab.com/"
+        },
+        "version": "0.1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Prod"
+        }
+    ],
+    "paths": {
+        "/llama": {
+            "post": {
+                "tags": [
+                    "llama"
+                ],
+                "summary": "Create a new llama",
+                "description": "Create a new playable llama",
+                "operationId": "create_llama",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/LlamaInput"
+                                    }
+                                ],
+                                "title": "Llama",
+                                "description": "Something"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Returns a llama to play with.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Llama"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/llama/{llama_id}": {
+            "get": {
+                "tags": [
+                    "llama"
+                ],
+                "summary": "Get llama",
+                "description": "Get llama by an id",
+                "operationId": "get_llama_by_id",
+                "parameters": [
+                    {
+                        "name": "llama_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "description": "A llama's id",
+                            "examples": [
+                                123
+                            ],
+                            "title": "Llama Id"
+                        },
+                        "description": "A llama's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Llama"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/llama/{llama_id}/step": {
+            "post": {
+                "tags": [
+                    "llama",
+                    "llama"
+                ],
+                "summary": "Move llama",
+                "description": "Move a llama up, down, left or right by a positive number of steps",
+                "operationId": "add_steps",
+                "parameters": [
+                    {
+                        "name": "llama_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "description": "A llama's id",
+                            "examples": [
+                                123
+                            ],
+                            "title": "Llama Id"
+                        },
+                        "description": "A llama's id"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/Direction"
+                                }
+                            ],
+                            "description": "The direction you want the llama to move",
+                            "title": "Direction"
+                        },
+                        "description": "The direction you want the llama to move"
+                    },
+                    {
+                        "name": "steps",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "description": "The number of steps to make",
+                            "examples": [
+                                3
+                            ],
+                            "title": "Steps"
+                        },
+                        "description": "The number of steps to make"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StepResult"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/llama/{llama_id}/move": {
+            "post": {
+                "tags": [
+                    "llama",
+                    "llama"
+                ],
+                "summary": "Move llama",
+                "description": "Move a llama up, down, left or right by a positive number of steps",
+                "operationId": "move_llama",
+                "parameters": [
+                    {
+                        "name": "llama_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "description": "A llama's id",
+                            "examples": [
+                                123
+                            ],
+                            "title": "Llama Id"
+                        },
+                        "description": "A llama's id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MoveResult"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/hack_liblab": {
+            "post": {
+                "tags": [
+                    "hack"
+                ],
+                "summary": "Hack liblab",
+                "description": "Attempt to guess liblab's admin password.",
+                "operationId": "hack_attempt",
+                "parameters": [
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "The password you think we use",
+                            "title": "Password"
+                        },
+                        "description": "The password you think we use",
+                        "example": "None of your business"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Hacker man",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HackResult"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid password."
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Direction": {
+                "type": "string",
+                "enum": [
+                    "left",
+                    "right",
+                    "up",
+                    "down"
+                ],
+                "title": "Direction",
+                "description": "The possible directions a llama can take."
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "HackResult": {
+                "properties": {
+                    "response": {
+                        "type": "string",
+                        "title": "Response",
+                        "description": "Did you make it?"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "response"
+                ],
+                "title": "HackResult",
+                "description": "Hacking result.",
+                "examples": [
+                    {
+                        "response": "Oh no! You did it! Our systems are down! What are we going to do??"
+                    }
+                ]
+            },
+            "Llama": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name",
+                        "description": "The llamas name."
+                    },
+                    "color": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/LlamaColor"
+                            }
+                        ],
+                        "description": "The llamas name.",
+                        "default": "white"
+                    },
+                    "llama_id": {
+                        "type": "integer",
+                        "title": "Llama Id",
+                        "description": "The llamas Id."
+                    },
+                    "score": {
+                        "type": "integer",
+                        "title": "Score",
+                        "description": "Current score of the llama.",
+                        "default": 0
+                    },
+                    "start_coordinates": {
+                        "items": {
+                            "type": "integer"
+                        },
+                        "type": "array",
+                        "maxItems": 2,
+                        "minItems": 2,
+                        "title": "Start Coordinates",
+                        "description": "Start position of the llama.",
+                        "default": [
+                            0,
+                            0
+                        ]
+                    },
+                    "curr_coordinates": {
+                        "items": {
+                            "type": "integer"
+                        },
+                        "type": "array",
+                        "maxItems": 2,
+                        "minItems": 2,
+                        "title": "Curr Coordinates",
+                        "description": "Current position of the llama.",
+                        "default": [
+                            0,
+                            0
+                        ]
+                    },
+                    "steps_list": {
+                        "items": {
+                            "items": {
+                                "type": "integer"
+                            },
+                            "type": "array"
+                        },
+                        "type": "array",
+                        "title": "Steps List",
+                        "description": "The list of steps the llama has taken since the last time the move endpoint was called.",
+                        "default": []
+                    },
+                    "status": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/LlamaStatus"
+                            }
+                        ],
+                        "default": "alive"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "llama_id"
+                ],
+                "title": "Llama",
+                "description": "A llama to create, with details of its name and color.",
+                "examples": [
+                    {
+                        "color": "black",
+                        "curr_coordinates": [
+                            0,
+                            5
+                        ],
+                        "llama_id": 123,
+                        "name": "Libby",
+                        "score": 12,
+                        "start_coordinates": [
+                            0,
+                            0
+                        ],
+                        "status": "alive",
+                        "steps_list": [
+                            [
+                                0,
+                                0
+                            ],
+                            [
+                                0,
+                                5
+                            ]
+                        ]
+                    }
+                ]
+            },
+            "LlamaColor": {
+                "type": "string",
+                "enum": [
+                    "black",
+                    "white",
+                    "red",
+                    "blue",
+                    "green",
+                    "yellow",
+                    "orange",
+                    "purple",
+                    "cyan",
+                    "magenta",
+                    "lime",
+                    "pink",
+                    "teal",
+                    "brown",
+                    "navy",
+                    "maroon",
+                    "olive",
+                    "silver",
+                    "gold",
+                    "beige",
+                    "turquoise",
+                    "indigo",
+                    "coral",
+                    "salmon",
+                    "chocolate"
+                ],
+                "title": "LlamaColor",
+                "description": "The color of a llama."
+            },
+            "LlamaInput": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name",
+                        "description": "The llamas name."
+                    },
+                    "color": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/LlamaColor"
+                            }
+                        ],
+                        "description": "The llamas name.",
+                        "default": "white"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name"
+                ],
+                "title": "LlamaInput",
+                "description": "A llama to create, with details of its name and color.",
+                "examples": [
+                    {
+                        "color": "black",
+                        "name": "Libby"
+                    }
+                ]
+            },
+            "LlamaStatus": {
+                "type": "string",
+                "enum": [
+                    "dead",
+                    "alive"
+                ],
+                "title": "LlamaStatus",
+                "description": "Current status of the Llama"
+            },
+            "MoveResult": {
+                "properties": {
+                    "llama_id": {
+                        "type": "integer",
+                        "title": "Llama Id",
+                        "description": "The llamas id."
+                    },
+                    "score": {
+                        "type": "integer",
+                        "title": "Score",
+                        "description": "Current score.",
+                        "default": 0
+                    },
+                    "status": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/LlamaStatus"
+                            }
+                        ],
+                        "description": "Current Llama's status.",
+                        "default": "alive"
+                    },
+                    "position": {
+                        "items": {
+                            "type": "integer"
+                        },
+                        "type": "array",
+                        "title": "Position"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "llama_id",
+                    "position"
+                ],
+                "title": "MoveResult",
+                "description": "A llama to create, with details of its name and color.",
+                "examples": [
+                    {
+                        "llama_id": 123,
+                        "position": [
+                            0,
+                            4
+                        ],
+                        "score": 5,
+                        "status": "alive"
+                    }
+                ]
+            },
+            "StepResult": {
+                "properties": {
+                    "llama_id": {
+                        "type": "integer",
+                        "title": "Llama Id",
+                        "description": "The llamas id."
+                    },
+                    "direction": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Direction"
+                            }
+                        ],
+                        "description": "The direction the llama will move in.",
+                        "default": "right"
+                    },
+                    "steps": {
+                        "type": "integer",
+                        "title": "Steps",
+                        "description": "The amount of steps the llama will take.",
+                        "default": 0
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "llama_id"
+                ],
+                "title": "StepResult",
+                "description": "A llama to create, with details of its name and color.",
+                "examples": [
+                    {
+                        "direction": "right",
+                        "llama_id": 123,
+                        "steps": 5
+                    }
+                ]
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "hack",
+            "description": "Get access to liblab's high score"
+        },
+        {
+            "name": "llama",
+            "description": "Control your llama"
+        }
+    ]
+}
