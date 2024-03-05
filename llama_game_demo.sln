@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "output", "output", "{631B3DB7-93A6-4FE5-A07A-E075AEA48E0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "csharp", "csharp", "{04F46164-8BF5-4008-9A92-0C74FC2A31F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "output\csharp\Example\Example.csproj", "{42EB772A-6EF7-41AB-A236-7CCCFFF4AEA5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "llama-game", "output\csharp\LlamaGame\llama-game.csproj", "{0284B703-94DB-4740-915D-373129D76E8E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42EB772A-6EF7-41AB-A236-7CCCFFF4AEA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42EB772A-6EF7-41AB-A236-7CCCFFF4AEA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42EB772A-6EF7-41AB-A236-7CCCFFF4AEA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42EB772A-6EF7-41AB-A236-7CCCFFF4AEA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0284B703-94DB-4740-915D-373129D76E8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0284B703-94DB-4740-915D-373129D76E8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0284B703-94DB-4740-915D-373129D76E8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0284B703-94DB-4740-915D-373129D76E8E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{04F46164-8BF5-4008-9A92-0C74FC2A31F7} = {631B3DB7-93A6-4FE5-A07A-E075AEA48E0E}
+		{42EB772A-6EF7-41AB-A236-7CCCFFF4AEA5} = {04F46164-8BF5-4008-9A92-0C74FC2A31F7}
+		{0284B703-94DB-4740-915D-373129D76E8E} = {04F46164-8BF5-4008-9A92-0C74FC2A31F7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F92F578-9B06-49ED-94D7-C556F907A139}
+	EndGlobalSection
+EndGlobal

@@ -9,3 +9,7 @@ cd ..
 cd frontend
 npm install
 npm run build
+
+# Install liblab
+cd ..
+npm install -g liblab
