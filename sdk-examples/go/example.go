@@ -3,6 +3,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/go-sdk/pkg/llama"
@@ -22,7 +23,7 @@ func main() {
 	llamaInput.SetColor(llama.LLAMA_COLOR_WHITE)
 
 	// Create the llama
-	newLlama, _ := llamaGameClient.Llama.CreateLlama(llamaInput)
+	newLlama, _ := llamaGameClient.Llama.CreateLlama(context.Background(), llamaInput)
 	fmt.Printf("Created llama %d\n", *newLlama.Data.LlamaId)
 
 	// Build a list of moves for the llama
@@ -32,23 +33,22 @@ func main() {
 	addSteps.SetDirection(llama.DIRECTION_DOWN)
 	addSteps.SetSteps(1)
 
-	llamaGameClient.Llama.AddSteps(*newLlama.Data.LlamaId, addSteps)
+	llamaGameClient.Llama.AddSteps(context.Background(), *newLlama.Data.LlamaId, addSteps)
 
 	// Right 5
 	addSteps.SetDirection(llama.DIRECTION_RIGHT)
 	addSteps.SetSteps(5)
 
-	llamaGameClient.Llama.AddSteps(*newLlama.Data.LlamaId, addSteps)
+	llamaGameClient.Llama.AddSteps(context.Background(), *newLlama.Data.LlamaId, addSteps)
 
 	// Down 1
 	addSteps.SetDirection(llama.DIRECTION_DOWN)
 	addSteps.SetSteps(1)
 
-	llamaGameClient.Llama.AddSteps(*newLlama.Data.LlamaId, addSteps)
+	llamaGameClient.Llama.AddSteps(context.Background(), *newLlama.Data.LlamaId, addSteps)
 
 	// Now we have the steps, run the moves and print the result
-	result, _ := llamaGameClient.Llama.MoveLlama(*newLlama.Data.LlamaId)
+	result, _ := llamaGameClient.Llama.MoveLlama(context.Background(), *newLlama.Data.LlamaId)
 	fmt.Printf("Llama %s is %s\n", *newLlama.Data.Name, *result.Data.Status)
 	fmt.Printf("Score: %d\n", *result.Data.Score)
 }
-
