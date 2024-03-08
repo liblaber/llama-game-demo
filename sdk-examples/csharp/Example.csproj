@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\..\output\csharp\LlamaGame\llama-game.csproj" />
+    <ProjectReference Include="..\..\output\csharp\LlamaGame\LlamaGame.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
