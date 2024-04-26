@@ -6,9 +6,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-sdk/pkg/llama"
-	"github.com/go-sdk/pkg/llamagame"
-	"github.com/go-sdk/pkg/llamagameconfig"
+	"github.com/liblaber/llama-store-sdk-go/pkg/llama"
+	"github.com/liblaber/llama-store-sdk-go/pkg/llamagame"
+	"github.com/liblaber/llama-store-sdk-go/pkg/llamagameconfig"
 )
 
 func main() {

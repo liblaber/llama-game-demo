@@ -166,3 +166,4 @@ cython_debug/
 
 .DS_Store
 llama_game_demo.sln
+.mono/

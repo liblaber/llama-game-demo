@@ -1,11 +1,11 @@
 """
 An example of programming against the llama SDK challenge game in Python
 """
-from llamagame import Llamagame
-from llamagame.models import Direction, LlamaColor, LlamaInput
+from llama_game import LlamaGame
+from llama_game.models import Direction, LlamaColor, LlamaInput
 
 # Create the SDK client
-lama_game_client = Llamagame()
+lama_game_client = LlamaGame()
 
 # Create a llama - for this we need a llama input
 # In this example, use libby the liblab llama
