@@ -6,9 +6,36 @@
     "python",
     "typescript",
     "csharp",
-    "go"
+    "go",
+    "php"
   ],
-  "createDocs": true,
+  "languageOptions": {
+    "typescript": {
+      "sdkVersion": "0.0.4"
+    },
+    "python": {
+      "sdkVersion": "0.0.4",
+      "liblabVersion": "2"
+    },
+    "java": {
+      "groupId": "com.liblab",
+      "sdkVersion": "0.0.4"
+    },
+    "go": {
+      "goModuleName": "github.com/liblaber/llama-store-sdk-go",
+      "sdkVersion": "0.0.4",
+      "liblabVersion": "2"
+    },
+    "csharp": {
+      "sdkVersion": "0.0.4",
+      "liblabVersion": "2"
+    },
+    "php": {
+      "sdkVersion": "0.0.4",
+      "liblabVersion": "2"
+    }
+  },
+  // "createDocs": true,
   "customizations": {
     "devContainer": true
   }
